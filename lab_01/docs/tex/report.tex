@@ -1,0 +1,187 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+%\usepackage[14pt]{extsizes}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} 
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usepackage{float}
+\usepackage{indentfirst}
+\usepackage{eucal}
+\usepackage{enumitem}
+%s\documentclass[openany]{book}
+\frenchspacing
+
+\usepackage{indentfirst} % Красная строка
+
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\usepackage{amsmath}
+
+
+% Для листинга кода:
+\lstset{ %
+	language=c,                 % выбор языка для подсветки (здесь это С)
+	basicstyle=\small\sffamily, % размер и начертание шрифта для подсветки кода
+	numbers=left,               % где поставить нумерацию строк (слева\справа)
+	numberstyle=\tiny,           % размер шрифта для номеров строк
+	stepnumber=1,                   % размер шага между двумя номерами строк
+	numbersep=5pt,                % как далеко отстоят номера строк от подсвечиваемого кода
+	showspaces=false,            % показывать или нет пробелы специальными отступами
+	showstringspaces=false,      % показывать или нет пробелы в строках
+	showtabs=false,             % показывать или нет табуляцию в строках
+	frame=single,              % рисовать рамку вокруг кода
+	tabsize=2,                 % размер табуляции по умолчанию равен 2 пробелам
+	captionpos=t,              % позиция заголовка вверху [t] или внизу [b] 
+	breaklines=true,           % автоматически переносить строки (да\нет)
+	breakatwhitespace=false, % переносить строки только если есть пробел
+	escapeinside={\#*}{*)}   % если нужно добавить комментарии в коде
+}
+
+
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+% Для измененных титулов глав:
+\usepackage{titlesec, blindtext, color} % подключаем нужные пакеты
+\definecolor{gray75}{gray}{0.75} % определяем цвет
+\newcommand{\hsp}{\hspace{20pt}} % длина линии в 20pt
+% titleformat определяет стиль
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+
+% plot
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\begin{document}
+	%\def\chaptername{} % убирает "Глава"
+	\thispagestyle{empty}
+	\begin{titlepage}
+		\noindent \begin{minipage}{0.15\textwidth}
+			\includegraphics[width=\linewidth]{img/b_logo}
+		\end{minipage}
+		\noindent\begin{minipage}{0.9\textwidth}\centering
+			\textbf{Министерство науки и высшего образования Российской Федерации}\\
+			\textbf{Федеральное государственное бюджетное образовательное учреждение высшего образования}\\
+			\textbf{~~~«Московский государственный технический университет имени Н.Э.~Баумана}\\
+			\textbf{(национальный исследовательский университет)»}\\
+			\textbf{(МГТУ им. Н.Э.~Баумана)}
+		\end{minipage}
+		
+		\noindent\rule{18cm}{3pt}
+		\newline\newline
+		\noindent ФАКУЛЬТЕТ $\underline{\text{«Информатика и системы управления»}}$ \newline\newline
+		\noindent КАФЕДРА $\underline{\text{«Программное обеспечение ЭВМ и информационные технологии»}}$\newline\newline\newline\newline\newline
+		
+		\begin{center}
+			\noindent\begin{minipage}{1.1\textwidth}\centering
+				\Large\textbf{  Отчет по лабораторной работе №1}\newline
+				\textbf{по дисциплине <<Функциональное и логическое}\newline
+				\textbf{~~~программирование>>}\newline\newline
+			\end{minipage}
+		\end{center}
+		
+		\noindent\textbf{Тема} $\underline{\text{Представление списков в виде списочных ячеек}}$\newline\newline
+		\noindent\textbf{Студент} $\underline{\text{Романов А.В.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Группа} $\underline{\text{ИУ7-63Б~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Оценка (баллы)} $\underline{\text{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Преподаватель} $\underline{\text{Толпинская Н.Б.~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline\newline
+		
+		\begin{center}
+			\vfill
+			Москва~---~\the\year
+			~г.
+		\end{center}
+	\end{titlepage}
+	
+	
+	
+	\chapter*{Задание 1}
+	\section*{Постановка задачи}
+	
+	Постановка задачи. Представить следующие списки в виде списочных ячеек:
+	
+	
+	\begin{enumerate}
+		\item ’(open close halph)
+		
+		\item ’((open1) (close2) (halph3))
+		
+		\item ’((one) for all (and (me (for you))))
+		
+		\item ’((TOOL)(call))
+		
+		\item ’((TOOL1)((call2))((sell)))
+		
+		\item ’(((TOOL)(call))(sell))
+	\end{enumerate}
+	
+	\section*{Решение}
+	Решение оформлено на тетрадном листе бумаге, прилагающемуся к отчету.
+	
+	\chapter*{Контрольные вопросы}
+	\textbf{Вопрос 1.} Перечислить элементы языка Lisp.
+	
+	\textbf{Ответ.} Элементами языка Lisp являются атомы и точечные пары (структуры). К атомам относится:
+	
+	\begin{itemize}
+		\item символы -- набор литер, начинающихся с буквы.
+		\item спец. символы: $\{T, Nil\}$. Используются для обозначения логических констант.
+		\item самоопределимые атомы -- натуральные, дробные, вещественные числа, строки (последовательность символов, заключенных в двойные апострофы)
+	\end{itemize}
+	
+	\textbf{Вопрос 2.} Синтаксис элементов языка и их представление в памяти.
+	
+	\textbf{Ответ.}""\newline
+	
+	Точечные пары ::= (<атом>, <атом>) |
+	
+	(<атом>, <точечная пара>) |
+	
+	(<точечная пара>, <атом>) |
+	
+	(<точечная пара>, <точечная пара>)
+	
+	
+	""\newline
+	\indent Список ::= <пустой список> | <непустой список>, где
+	
+	<пустой список> ::= () | Nil,
+	
+	<непустой список> ::= (<первый элемент>, <хвост>),
+	
+	<первый элемент> ::= <S-выражение>,
+	
+	<хвост> ::= <список>""\newline
+	
+	\indent \textbf{Список} -- частный случай S-выражения. Любая структура (точечная пара или список) заключаются в круглые скобки:
+	
+	\begin{itemize}
+		\item (A . B) -- точечная пара;
+		\item $(A)$ -- список из одного элемента;
+		\item $Nil$ или $()$ -- пустой список;
+		\item (A . (B . (C . (D ()))))) или (A B C D) -- непустой список;
+		\item Элементы списка могу являться списками: $((A)(B)(CD))$
+	\end{itemize}
+	
+	Любая непустая структура в Lisp, в памяти представленна списковой ячейкой, хранящей два указателя: на голову и хвост.""\newline
+	
+	\textbf{Вопрос 3.} Как воспринимается символ ’ (апостроф)?
+	
+	\textbf{Ответ.} Символ ’ эквивалентен функции quote – он блокирует вычисление выражения. Таким образом, выражение воспринимается интерпретатором как данные.""\newline
+	
+	\textbf{Вопрос 4.} Что такое рекурсия и примеры рекурсии из языка Lisp.
+	
+	\textbf{Ответ.} Рекурсия – ссылка на описываемый объект в процессе его описания. Списки в Lisp заданы рекурсивно, то есть каждый элемент списка
+	является еще одним списком, имеющим непустой или пустой хвост.
+	
+	\bibliographystyle{utf8gost705u}  % стилевой файл для оформления по ГОСТу
+	
+	\bibliography{51-biblio}          % имя библиографической базы (bib-файла)
+	
+	
+\end{document}
