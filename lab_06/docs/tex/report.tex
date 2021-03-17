@@ -1,0 +1,244 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+%\usepackage[14pt]{extsizes}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} 
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usepackage{float}
+\usepackage{indentfirst}
+\usepackage{eucal}
+\usepackage{enumitem}
+%s\documentclass[openany]{book}
+\frenchspacing
+
+\usepackage{indentfirst} % Красная строка
+
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\usepackage{amsmath}
+
+
+% Для листинга кода:
+\lstset{ %
+	language=c,                 % выбор языка для подсветки (здесь это С)
+	basicstyle=\small\sffamily, % размер и начертание шрифта для подсветки кода
+	numbers=left,               % где поставить нумерацию строк (слева\справа)
+	numberstyle=\tiny,           % размер шрифта для номеров строк
+	stepnumber=1,                   % размер шага между двумя номерами строк
+	numbersep=5pt,                % как далеко отстоят номера строк от подсвечиваемого кода
+	showspaces=false,            % показывать или нет пробелы специальными отступами
+	showstringspaces=false,      % показывать или нет пробелы в строках
+	showtabs=false,             % показывать или нет табуляцию в строках
+	frame=single,              % рисовать рамку вокруг кода
+	tabsize=2,                 % размер табуляции по умолчанию равен 2 пробелам
+	captionpos=t,              % позиция заголовка вверху [t] или внизу [b] 
+	breaklines=true,           % автоматически переносить строки (да\нет)
+	breakatwhitespace=false, % переносить строки только если есть пробел
+	escapeinside={\#*}{*)}   % если нужно добавить комментарии в коде
+}
+
+
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+% Для измененных титулов глав:
+\usepackage{titlesec, blindtext, color} % подключаем нужные пакеты
+\definecolor{gray75}{gray}{0.75} % определяем цвет
+\newcommand{\hsp}{\hspace{20pt}} % длина линии в 20pt
+% titleformat определяет стиль
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+
+% plot
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\begin{document}
+	%\def\chaptername{} % убирает "Глава"
+	\thispagestyle{empty}
+	\begin{titlepage}
+		\noindent \begin{minipage}{0.15\textwidth}
+			\includegraphics[width=\linewidth]{img/b_logo}
+		\end{minipage}
+		\noindent\begin{minipage}{0.9\textwidth}\centering
+			\textbf{Министерство науки и высшего образования Российской Федерации}\\
+			\textbf{Федеральное государственное бюджетное образовательное учреждение высшего образования}\\
+			\textbf{~~~«Московский государственный технический университет имени Н.Э.~Баумана}\\
+			\textbf{(национальный исследовательский университет)»}\\
+			\textbf{(МГТУ им. Н.Э.~Баумана)}
+		\end{minipage}
+		
+		\noindent\rule{18cm}{3pt}
+		\newline\newline
+		\noindent ФАКУЛЬТЕТ $\underline{\text{«Информатика и системы управления»}}$ \newline\newline
+		\noindent КАФЕДРА $\underline{\text{«Программное обеспечение ЭВМ и информационные технологии»}}$\newline\newline\newline\newline\newline
+		
+		\begin{center}
+			\noindent\begin{minipage}{1.1\textwidth}\centering
+				\Large\textbf{  Отчет по лабораторной работе №6}\newline
+				\textbf{по дисциплине <<Функциональное и логическое}\newline
+				\textbf{~~~программирование>>}\newline\newline
+			\end{minipage}
+		\end{center}
+		
+		\noindent\textbf{Тема} $\underline{\text{Использование управляющих структур, работа со списками}}$\newline\newline
+		\noindent\textbf{Студент} $\underline{\text{Романов А.В.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Группа} $\underline{\text{ИУ7-63Б~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Оценка (баллы)} $\underline{\text{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Преподаватель} $\underline{\text{Толпинская Н.Б., Строганов Ю. В.~~~~~~~~~~~~~~~~~~~~}}$\newline\newline\newline
+		
+		\begin{center}
+			\vfill
+			Москва~---~\the\year
+			~г.
+		\end{center}
+	\end{titlepage}
+	
+	
+\section*{Задание 1}
+\subsection*{Постановка задачи}
+Чем принципиально отличаются функции \texttt{cons}, \texttt{list}, \texttt{append}?\\
+\indent Пусть \texttt{(setf lst1 '(a b))} \texttt{(setf lst2 '(c d))}\\
+\indent Каковы результаты следующих выражений?
+
+\begin{lstlisting}
+(cons lst1 lst2)
+(list lst1 lst2)
+(append lst1 lst2)
+\end{lstlisting}
+
+\subsection*{Решение}
+\begin{enumerate}
+	\item \texttt{((A B) C D)}
+	\item \texttt{((A B) (C D))}
+	\item \texttt{(A B C D)}
+\end{enumerate}
+
+\section*{Задание №2}
+\subsection*{Постановка задачи}
+Каковы результаты вычисления следующих выражений?
+
+\begin{lstlisting}
+(reverse ())
+(last ())
+(reverse '(a))
+(last '(a))
+(reverse '((a b c)))
+(last '((a b c)))
+\end{lstlisting}
+
+
+\subsection*{Решение}
+\begin{enumerate}
+	\item \texttt{Nil}
+	\item \texttt{Nil}
+	\item \texttt{(a)}
+	\item \texttt{(a)}
+	\item \texttt{((a b c))}
+	\item \texttt{((a b c))}
+\end{enumerate}
+
+\section*{Задание №3}
+\subsection*{Постановка задачи}
+Написать, по крайней мере, два варианта функции, которая возвращает последний элемент своего списка-аргумента
+
+\subsection*{Решение}
+\begin{lstlisting}[label=third,caption=Решение задания №3, language=lisp]
+(defun last (lst)
+	(if (cdr lst)
+		(last-elem (cdr lst))
+		(car lst))
+)
+
+(defun last-reduce (lst)
+	(reduce #'(lambda (acc current) current) lst)
+)
+\end{lstlisting}
+
+\section*{Задание №4}
+\subsection*{Постановка задачи}
+Написать, по крайней мере, два варианта функции, которая возвращает свой список-аргумент без последнего элемента
+
+\subsection*{Решение}
+\begin{lstlisting}[label=third,caption=Решение задания №3, language=lisp]
+(defun init (lst)
+	(defun wrapper (lst acc)
+		(if (cdr lst)
+			(wrapper (cdr lst) (append acc (cons (car lst) Nil)))
+			acc)
+		)
+	(wrapper lst ())
+)
+
+(defun init-reverse (lst)
+	(reverse (cdr (reverse lst)))
+)
+\end{lstlisting}
+
+\section*{Задание №5}
+\subsection*{Постановка задачи}
+Написать простой вариант игры в кости, в котором бросаются две правильные кости. Если сумма выпавших очков равна 7 или 11 --- выигрыш, если выпало $(1, 1)$ или $(6, 6)$ --- игрок получает право снова бросить кости, во всех остальных случаях ход переходит ко второму игроку, но запоминается сумма выпавших очков. Если второй игрок не выигрывает абсолютно, то выигрывает тот игрок, у которого больше очков. Результат игры и значения выпавших костей выводить на экран с помощью функции \texttt{print}.
+
+\subsection*{Решение}
+\begin{lstlisting}[label=5,caption=Решение задания №5, language=lisp]
+(defun random-cube-value ()
+	(list (random 7) (random 7)))
+
+(defun dices-sum (pair)
+	(+ (car pair) (car (cdr pair))))
+
+(defun check-absolute-win (sum)
+	(or (= sum 7) (= sum 11)))
+
+(defun check-rerun (pair)
+	(let* ((fst (car pair))
+		   (snd (car (cdr pair))))
+	(or (= fst snd 1) (= fst snd 6)))
+)
+
+(defun dices ()
+	(let* ((fst-dices-pair (random-cube-value))
+			(fst-dices-sum (dices-sum fst-dices-pair)))
+				(format T "Player one dices: ~a.~%" fst-dices-pair)
+				(cond ((check-absolute-win fst-dices-sum)
+					(format T "Player one win!~%"))
+				((check-rerun fst-dices-pair)
+					(format T "Rerun!~%") (dices))
+				(t (let* ((snd-dices-pair (random-cube-value))
+					   	    (snd-dices-sum (dices-sum snd-dices-pair)))
+					          (format T "Player two dices: ~a.~%" snd-dices-pair)
+						  	  (cond ((check-absolute-win snd-dices-sum)
+						      	(format T "Player two win!~%"))
+						  		((> fst-dices-sum snd-dices-sum)
+							  		(format T "Player one win!~%"))
+						  		(t
+							  		(format T "Player two win!~%")))))))
+)
+
+\end{lstlisting}
+
+
+\section*{Контрольные вопросы}
+\textbf{Вопрос 1.} Структуроразрушающие и не разрушающие структуру списка функции\newline
+\indent\textbf{Ответ.} \textbf{Не разрушающие структуру списка функции.} Данные функции не меняют сам объект-аргумент, а создают копию. К таким функциям относятся: 
+\texttt{append, reverse, last, nth, nthcdr, length, remove, subst} и прочие.\\
+
+\indent \textbf{Структуроразрушающие функции.} Данные функции меняют сам объект-аргумент, невозможно вернуться к исходному списку. Чаще всего такие функции начинаются с префикса \texttt{n-}. К такми функция относятся: \texttt{nreverse, nconc, nsubst} и прочие.\\
+
+\textbf{Вопрос 2.} Отличие в работе функций \texttt{cons}, \texttt{list}, \texttt{append} и в их результате. \newline
+\indent\textbf{Ответ. }Функция \texttt{cons} --- чисто математическая, конструирует списковую ячейку, которая может вовсе и не быть списком. Является списком только в том случае, если вторым аргументом передан список.\\
+
+Функция \texttt{list} --- форма, принимает произвольное количество аргументов и конструирует из них список. Результат --- всегда список. При нуле аргументов возвращает пустой список.\\
+
+Функция \texttt{append} --- форма, принимает на вход произвольное количество аргументов и для всех аргументов, кроме последнего, создает копию, ссылая при этом последний элемент каждого списка-аргумента на первый элемент следующего по порядку списка-аргумента. Копирование для последнего не делается в целях эффективности.\\
+	
+\bibliographystyle{utf8gost705u}  % стилевой файл для оформления по ГОСТу
+	
+\bibliography{51-biblio}          % имя библиографической базы (bib-файла)
+	
+	
+\end{document}
