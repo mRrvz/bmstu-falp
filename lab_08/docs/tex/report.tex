@@ -1,0 +1,241 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+%\usepackage[14pt]{extsizes}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} 
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usepackage{float}
+\usepackage{indentfirst}
+\usepackage{eucal}
+\usepackage{enumitem}
+%s\documentclass[openany]{book}
+\frenchspacing
+
+\usepackage{indentfirst} % Красная строка
+
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\usepackage{amsmath}
+
+
+% Для листинга кода:
+\lstset{ %
+	language=c,                 % выбор языка для подсветки (здесь это С)
+	basicstyle=\small\sffamily, % размер и начертание шрифта для подсветки кода
+	numbers=left,               % где поставить нумерацию строк (слева\справа)
+	numberstyle=\tiny,           % размер шрифта для номеров строк
+	stepnumber=1,                   % размер шага между двумя номерами строк
+	numbersep=5pt,                % как далеко отстоят номера строк от подсвечиваемого кода
+	showspaces=false,            % показывать или нет пробелы специальными отступами
+	showstringspaces=false,      % показывать или нет пробелы в строках
+	showtabs=false,             % показывать или нет табуляцию в строках
+	frame=single,              % рисовать рамку вокруг кода
+	tabsize=2,                 % размер табуляции по умолчанию равен 2 пробелам
+	captionpos=t,              % позиция заголовка вверху [t] или внизу [b] 
+	breaklines=true,           % автоматически переносить строки (да\нет)
+	breakatwhitespace=false, % переносить строки только если есть пробел
+	escapeinside={\#*}{*)}   % если нужно добавить комментарии в коде
+}
+
+
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+% Для измененных титулов глав:
+\usepackage{titlesec, blindtext, color} % подключаем нужные пакеты
+\definecolor{gray75}{gray}{0.75} % определяем цвет
+\newcommand{\hsp}{\hspace{20pt}} % длина линии в 20pt
+% titleformat определяет стиль
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+
+% plot
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\begin{document}
+	%\def\chaptername{} % убирает "Глава"
+	\thispagestyle{empty}
+	\begin{titlepage}
+		\noindent \begin{minipage}{0.15\textwidth}
+			\includegraphics[width=\linewidth]{img/b_logo}
+		\end{minipage}
+		\noindent\begin{minipage}{0.9\textwidth}\centering
+			\textbf{Министерство науки и высшего образования Российской Федерации}\\
+			\textbf{Федеральное государственное бюджетное образовательное учреждение высшего образования}\\
+			\textbf{~~~«Московский государственный технический университет имени Н.Э.~Баумана}\\
+			\textbf{(национальный исследовательский университет)»}\\
+			\textbf{(МГТУ им. Н.Э.~Баумана)}
+		\end{minipage}
+		
+		\noindent\rule{18cm}{3pt}
+		\newline\newline
+		\noindent ФАКУЛЬТЕТ $\underline{\text{«Информатика и системы управления»}}$ \newline\newline
+		\noindent КАФЕДРА $\underline{\text{«Программное обеспечение ЭВМ и информационные технологии»}}$\newline\newline\newline\newline\newline
+		
+		\begin{center}
+			\noindent\begin{minipage}{1.1\textwidth}\centering
+				\Large\textbf{  Отчет по лабораторной работе №8}\newline
+				\textbf{по дисциплине <<Функциональное и логическое}\newline
+				\textbf{~~~программирование>>}\newline\newline
+			\end{minipage}
+		\end{center}
+		
+		\noindent\textbf{Тема} $\underline{\text{Использование функционалов~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Студент} $\underline{\text{Романов А.В.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Группа} $\underline{\text{ИУ7-63Б~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Оценка (баллы)} $\underline{\text{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Преподаватель} $\underline{\text{Толпинская Н.Б., Строганов Ю. В.}}$\newline\newline\newline
+		
+		\begin{center}
+			\vfill
+			Москва~---~\the\year
+			~г.
+		\end{center}
+	\end{titlepage}
+	
+	
+\section*{Задание 1}
+\subsection*{Постановка задачи}
+Напишите функцию, которая умножает на заданное число-аргумент все числа из заданного списка-аргумента, когда все элементы списка --- числа и все элементы списка --- любые объекты.
+
+\subsection*{Решение}
+\begin{lstlisting}
+(defun mult-numbers (acc lst)
+	(reduce #'* lst :initial-value acc))
+
+(defun mult-objects (mp lst)
+	(reduce
+		#'(lambda (acc el)
+			(if (numberp el)
+				(* acc el)
+				acc))
+	lst :initial-value mp))
+\end{lstlisting}
+
+
+\section*{Задание №2}
+\subsection*{Постановка задачи}
+Напишите функцию, \texttt{select-between}, которая из списка-аргумента, содержащего только числа, выбирает только те, которые расположены между двумя указанными границами-аргументами и возвращает их в виде списка (упорядоченного по возрастанию списка чисел)
+
+\subsection*{Решение}
+\begin{lstlisting}
+(defun select-between (lst bot top)
+	(reduce
+		#'(lambda (acc el)
+			(if (and (> el bot) (< el top))
+				(append acc (cons el Nil))
+				acc))
+	lst :initial-value ()))
+\end{lstlisting}
+
+\section*{Задание №3}
+\subsection*{Постановка задачи}
+Что будет результатом \texttt{(mapcar 'вектор '(570-40-8))}?
+
+\subsection*{Решение}
+Функции \texttt{вектор} не существует, программа завершится с ошибкой.
+
+\section*{Задание №4}
+Напишите функцию, которая уменьшает на 10 все числа из списка аргумента этой функции.
+
+\subsection*{Постановка задачи}
+\subsection*{Решение}
+\begin{lstlisting}
+(defun minus-n (lst n)
+	(mapcar #'(lambda (el) (- el n)) lst))
+\end{lstlisting}
+
+
+\section*{Задание №5}
+Написать функцию, которая возвращает первый аргумент списка-аргумента, который сам является непустым списком.
+
+\subsection*{Постановка задачи}
+\subsection*{Решение}
+\begin{lstlisting}
+(defun first-lst (lst)
+	(if (listp (car lst))
+		(car (car lst))
+		(first-lst (cdr lst))))
+\end{lstlisting}
+\clearpage
+
+\section*{Задание №6}
+Найти сумму числовых элементов смешанного структурированного списка.
+
+\subsection*{Постановка задачи}
+\subsection*{Решение}
+\begin{lstlisting}
+(defun sum-list (lst)
+	(reduce
+		#'(lambda (acc x)
+			(cond ((listp x) (+ acc (sum-list x)))
+				((numberp x) (+ acc x))
+				(t acc)))
+	(cons 0 lst)) ;; NIL Check)
+\end{lstlisting}
+
+
+
+\section*{Контрольные вопросы}
+\textbf{Вопрос 1.} Порядок работы и варианты использования функционалов\\
+
+Функционалы --- функции, которые в качестве одного из аргументов используют другую функцию.\\
+
+\indent\textbf{Ответ.} \textbf{Применяющие функционалы}\\
+
+Данные функционалы просто применить переданную в качестве аргумента функцию к переданным в качестве аргументов параметрам.
+
+\begin{enumerate}
+	\item \texttt{funcall} -- вызывает функцию-аргумент с остальными аргументами;
+	
+	Синтаксис: \texttt{(funcall \#'fun arg1 arg2 ... argN)}.
+	Пример: \texttt{(funcall \#'* 1 2 3)}
+	
+	\item \texttt{apply} -- вызывает функцию-аргумент с аргументами из списка, переданного вторым аргументом в \texttt{apply}.
+	
+	Синтаксис: \texttt{(apply \#'fun arg-lst)}.
+	Пример: \texttt{(apply \#'* '(1 2 3))}
+\end{enumerate}
+
+\textbf{Отображающие функционалы}\\
+
+Отображения множества аргументов в множество значений позволяют многократно применить функцию. Данные функции берут аргумент, являющийся функцональным объектом и многократно применяет эту фукнцию к элементам переданного в качестве аргумента списка.
+
+\begin{enumerate}
+	\item \texttt{mapcar} --- функция \texttt{fun} применяется ко всем первым элементам списков-аргументов, затем ко всем вторым аргументам и так до тех пор, пока не кончатся элементы самого короткого списка. К полученным результатам применения функции применяется функция \texttt{list}, поэтому на выходе функции всегда будет список;
+	
+	Синтаксис: \texttt{(mapcar \#'fun lst1 lst2 ... lstN)}.
+	Пример: \texttt{(mapcar \#'(lambda (x y) (* x y)) '(1 2 3) '(4 5 6)) -> (4 10 18)}
+	
+	\item \texttt{maplist} --- в качестве аргумента на каждой итерации функция \texttt{fun} получает хвост списка, который использовался на предыдущей итерации (изначально функция получает сам список-аргумент). Если функция принимает несколько аргументов и передано несколько аргументов-списков, то они передаются функции \texttt{fun} в том же порядке, в которым идут в \texttt{maplist};
+	
+	Синтаксис: \texttt{(maplist \#'fun lst1 lst2 ... lstN)}.
+	Пример: \texttt{(maplist \#'(lambda (x y) (+ (car x) (car y))) '(1 2 3 4) '(6 5 4)) -> (list (+ 1 6) (+ 2 5) (+ 2 4))}
+	
+	\item \texttt{mapcan} --- работает аналогично \texttt{mapcar}, только соединяет результаты функции с помощью функции \texttt{nconc}. Может использоваться как \texttt{filter-map} из некоторых современных языков (например, функция, которая оставляет только четные числа и возводит их в квадрат);
+	
+	Синтаксис: \texttt{(mapcan \#'fun lst1 lst2 ... lstN)}.
+	Пример: \texttt{(mapcan \#'(lambda (x) (and (oddp x) (list (* x x)))) '(1 2 3 4 5 6 7 8 9)) -> (1 9 25 49 81)}
+	
+	\item \texttt{mapcon} --- работает аналогично \texttt{maplist}, только соединяет результаты функции с помощью функции \texttt{nconc}.
+	
+	Синтаксис: \texttt{(mapcon \#'fun lst1 lst2 ... lstN)}
+	
+	\item \texttt{reduce} -- применяет функцию к элементам списка каскадно. Накапливает значение, применяя функцию-аргумент к результату предыдущей итерации и следующему элементу списка (изначально инициализирует результат первым элементом, в случае пустого списка пытается вызвать функцию-аргумент без аргументов и вернуть значение);
+	
+	Синтаксис: \texttt{(reduce \#'aggregator lst)}.
+	Пример: \texttt{(reduce \#'oddp '(1 2 3 4 5 6)) -> (2 4 6)}.
+
+\end{enumerate}
+
+\bibliographystyle{utf8gost705u}  % стилевой файл для оформления по ГОСТу
+	
+\bibliography{51-biblio}          % имя библиографической базы (bib-файла)
+	
+	
+\end{document}
