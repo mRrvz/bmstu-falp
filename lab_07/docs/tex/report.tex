@@ -1,0 +1,218 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+%\usepackage[14pt]{extsizes}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} 
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usepackage{float}
+\usepackage{indentfirst}
+\usepackage{eucal}
+\usepackage{enumitem}
+%s\documentclass[openany]{book}
+\frenchspacing
+
+\usepackage{indentfirst} % Красная строка
+
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\usepackage{amsmath}
+
+
+% Для листинга кода:
+\lstset{ %
+	language=c,                 % выбор языка для подсветки (здесь это С)
+	basicstyle=\small\sffamily, % размер и начертание шрифта для подсветки кода
+	numbers=left,               % где поставить нумерацию строк (слева\справа)
+	numberstyle=\tiny,           % размер шрифта для номеров строк
+	stepnumber=1,                   % размер шага между двумя номерами строк
+	numbersep=5pt,                % как далеко отстоят номера строк от подсвечиваемого кода
+	showspaces=false,            % показывать или нет пробелы специальными отступами
+	showstringspaces=false,      % показывать или нет пробелы в строках
+	showtabs=false,             % показывать или нет табуляцию в строках
+	frame=single,              % рисовать рамку вокруг кода
+	tabsize=2,                 % размер табуляции по умолчанию равен 2 пробелам
+	captionpos=t,              % позиция заголовка вверху [t] или внизу [b] 
+	breaklines=true,           % автоматически переносить строки (да\нет)
+	breakatwhitespace=false, % переносить строки только если есть пробел
+	escapeinside={\#*}{*)}   % если нужно добавить комментарии в коде
+}
+
+
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+% Для измененных титулов глав:
+\usepackage{titlesec, blindtext, color} % подключаем нужные пакеты
+\definecolor{gray75}{gray}{0.75} % определяем цвет
+\newcommand{\hsp}{\hspace{20pt}} % длина линии в 20pt
+% titleformat определяет стиль
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+
+% plot
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\begin{document}
+	%\def\chaptername{} % убирает "Глава"
+	\thispagestyle{empty}
+	\begin{titlepage}
+		\noindent \begin{minipage}{0.15\textwidth}
+			\includegraphics[width=\linewidth]{img/b_logo}
+		\end{minipage}
+		\noindent\begin{minipage}{0.9\textwidth}\centering
+			\textbf{Министерство науки и высшего образования Российской Федерации}\\
+			\textbf{Федеральное государственное бюджетное образовательное учреждение высшего образования}\\
+			\textbf{~~~«Московский государственный технический университет имени Н.Э.~Баумана}\\
+			\textbf{(национальный исследовательский университет)»}\\
+			\textbf{(МГТУ им. Н.Э.~Баумана)}
+		\end{minipage}
+		
+		\noindent\rule{18cm}{3pt}
+		\newline\newline
+		\noindent ФАКУЛЬТЕТ $\underline{\text{«Информатика и системы управления»}}$ \newline\newline
+		\noindent КАФЕДРА $\underline{\text{«Программное обеспечение ЭВМ и информационные технологии»}}$\newline\newline\newline\newline\newline
+		
+		\begin{center}
+			\noindent\begin{minipage}{1.1\textwidth}\centering
+				\Large\textbf{  Отчет по лабораторной работе №7}\newline
+				\textbf{по дисциплине <<Функциональное и логическое}\newline
+				\textbf{~~~программирование>>}\newline\newline
+			\end{minipage}
+		\end{center}
+		
+		\noindent\textbf{Тема} $\underline{\text{Использование управляющих структур, работа со списками}}$\newline\newline
+		\noindent\textbf{Студент} $\underline{\text{Романов А.В.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Группа} $\underline{\text{ИУ7-63Б~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Оценка (баллы)} $\underline{\text{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Преподаватель} $\underline{\text{Толпинская Н.Б., Строганов Ю. В.~~~~~~~~~~~~~~~~~~~~}}$\newline\newline\newline
+		
+		\begin{center}
+			\vfill
+			Москва~---~\the\year
+			~г.
+		\end{center}
+	\end{titlepage}
+	
+	
+\section*{Задание 1}
+\subsection*{Постановка задачи}
+Написать функцию, которая по своему аргументу-списку \texttt{lst} определяет, является ли он полиндромом (то есть равны ли \texttt{lst} и \texttt{(reverse lst)})
+
+\subsection*{Решение}
+\begin{lstlisting}
+(defun is-palindrome (lst)
+	(equal lst (reverse lst)))
+\end{lstlisting}
+
+\section*{Задание №2}
+\subsection*{Постановка задачи}
+Написать предикат \texttt{set-equal}, который возвращает \texttt{t}, если два его множества-аргумента содержат одни и те же элементы, порядок которых не имеет значения
+
+\subsection*{Решение}
+\begin{lstlisting}
+(defun set-equal (set1 set2)
+	(not (set-difference set1 set2)))
+\end{lstlisting}
+
+
+\section*{Задание №3}
+\subsection*{Постановка задачи}
+Напишите необходимые функции, которые обрабатывают таблицу из точечных пар: \texttt{(страна . столица)}, и возвращают по стране столицу, а по столице --- страну
+
+\subsection*{Решение}
+\begin{lstlisting}
+(defun get-capital (table country)
+	(cdr (assoc country table)))
+
+(defun get-country (table capital)
+	(car (rassoc capital table)))
+\end{lstlisting}
+
+
+\section*{Задание №4}
+\subsection*{Постановка задачи}
+Напишите функцию \texttt{swap-first-last}, которая переставляет в списке аргументе первый и последний элементы
+
+\subsection*{Решение}
+\begin{lstlisting}
+(defun swap-first-last (lst)
+	(append
+		(append
+			(cons (car (reverse lst)) Nil) ;; last
+			(reverse (cdr (reverse lst)))) ;; tail without last
+		(cons (car lst) Nil))) ;; head
+\end{lstlisting}
+
+\section*{Задание №5}
+\subsection*{Постановка задачи}
+Напишите функцию \texttt{swap-two-ellement}, которая переставляет в списке-аргументе два указанных своими порядковыми номерами элемента в этом списке
+
+\subsection*{Решение}
+\begin{lstlisting}
+(defun swap-two-elements (lst ind1 ind2)
+	(rotatef (nth ind1 lst) (nth ind2 lst)) lst)
+\end{lstlisting}
+
+\section*{Задание №6}
+\subsection*{Постановка задачи}
+Напишите две функции, \texttt{swap-to-left} и \texttt{swap-to-right}, которые производят круговую перестановку в списке-аргументе влево и вправо, соответственно
+
+\subsection*{Решение}
+\begin{lstlisting}
+(defun swap-to-left (lst)
+	(append (cdr lst) (cons (car lst) Nil)))
+
+(defun swap-to-right (lst)
+	(append
+		(cons (car (reverse lst)) Nil)
+		(reverse (cdr (reverse lst)))))
+\end{lstlisting}
+
+
+\section*{Контрольные вопросы}
+\textbf{Вопрос 1.} Способы определения функций\\
+\indent\textbf{Ответ.} Существует два способа определений функций:
+
+\begin{itemize}
+	\item через \texttt{defun};
+	\item через \texttt{lambda}.
+\end{itemize}
+
+Пример \texttt{defun}:
+\begin{lstlisting}
+(defun func-name (args-list) function-body)
+(defun get-cube(y) (* y y y))
+(get-cube y)
+\end{lstlisting}
+
+Пример \texttt{lambda}:
+\begin{lstlisting}
+(lambda (args-list) function-body)
+((lambda (x) (* x x)) 2)
+\end{lstlisting} ""\newline
+
+\indent \textbf{Вопрос 2.} Варианты и методы модификации списков\\
+\indent\textbf{Ответ. }\textbf{Не разрушающие структуру списка функции.} Данные функции не меняют сам объект-аргумент, а создают копию. К таким функциям относятся: 
+\texttt{append, reverse, last, nth, nthcdr, length, remove, subst} и прочие.\\
+
+\indent \textbf{Структуроразрушающие функции.} Данные функции меняют сам объект-аргумент, невозможно вернуться к исходному списку. Чаще всего такие функции начинаются с префикса \texttt{n-}. К такми функция относятся: \texttt{nreverse, nconc, nsubst} и прочие.\\
+
+\textbf{Вопрос 3.} Отличие в работе функций \texttt{cons}, \texttt{list}, \texttt{append} и в их результате\\
+\indent\textbf{Ответ. }Функция \texttt{cons} --- чисто математическая, конструирует списковую ячейку, которая может вовсе и не быть списком. Является списком только в том случае, если вторым аргументом передан список.\\
+
+Функция \texttt{list} --- форма, принимает произвольное количество аргументов и конструирует из них список. Результат --- всегда список. При нуле аргументов возвращает пустой список.\\
+
+Функция \texttt{append} --- форма, принимает на вход произвольное количество аргументов и для всех аргументов, кроме последнего, создает копию, ссылая при этом последний элемент каждого списка-аргумента на первый элемент следующего по порядку списка-аргумента. Копирование для последнего не делается в целях эффективности.\\
+
+	
+\bibliographystyle{utf8gost705u}  % стилевой файл для оформления по ГОСТу
+	
+\bibliography{51-biblio}          % имя библиографической базы (bib-файла)
+	
+	
+\end{document}
