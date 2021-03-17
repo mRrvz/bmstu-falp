@@ -1,0 +1,274 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+%\usepackage[14pt]{extsizes}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} 
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usepackage{float}
+\usepackage{indentfirst}
+\usepackage{eucal}
+\usepackage{enumitem}
+%s\documentclass[openany]{book}
+\frenchspacing
+
+\usepackage{indentfirst} % Красная строка
+
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\usepackage{amsmath}
+
+
+% Для листинга кода:
+\lstset{ %
+	language=c,                 % выбор языка для подсветки (здесь это С)
+	basicstyle=\small\sffamily, % размер и начертание шрифта для подсветки кода
+	numbers=left,               % где поставить нумерацию строк (слева\справа)
+	numberstyle=\tiny,           % размер шрифта для номеров строк
+	stepnumber=1,                   % размер шага между двумя номерами строк
+	numbersep=5pt,                % как далеко отстоят номера строк от подсвечиваемого кода
+	showspaces=false,            % показывать или нет пробелы специальными отступами
+	showstringspaces=false,      % показывать или нет пробелы в строках
+	showtabs=false,             % показывать или нет табуляцию в строках
+	frame=single,              % рисовать рамку вокруг кода
+	tabsize=2,                 % размер табуляции по умолчанию равен 2 пробелам
+	captionpos=t,              % позиция заголовка вверху [t] или внизу [b] 
+	breaklines=true,           % автоматически переносить строки (да\нет)
+	breakatwhitespace=false, % переносить строки только если есть пробел
+	escapeinside={\#*}{*)}   % если нужно добавить комментарии в коде
+}
+
+
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+% Для измененных титулов глав:
+\usepackage{titlesec, blindtext, color} % подключаем нужные пакеты
+\definecolor{gray75}{gray}{0.75} % определяем цвет
+\newcommand{\hsp}{\hspace{20pt}} % длина линии в 20pt
+% titleformat определяет стиль
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+
+% plot
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\begin{document}
+	%\def\chaptername{} % убирает "Глава"
+	\thispagestyle{empty}
+	\begin{titlepage}
+		\noindent \begin{minipage}{0.15\textwidth}
+			\includegraphics[width=\linewidth]{img/b_logo}
+		\end{minipage}
+		\noindent\begin{minipage}{0.9\textwidth}\centering
+			\textbf{Министерство науки и высшего образования Российской Федерации}\\
+			\textbf{Федеральное государственное бюджетное образовательное учреждение высшего образования}\\
+			\textbf{~~~«Московский государственный технический университет имени Н.Э.~Баумана}\\
+			\textbf{(национальный исследовательский университет)»}\\
+			\textbf{(МГТУ им. Н.Э.~Баумана)}
+		\end{minipage}
+		
+		\noindent\rule{18cm}{3pt}
+		\newline\newline
+		\noindent ФАКУЛЬТЕТ $\underline{\text{«Информатика и системы управления»}}$ \newline\newline
+		\noindent КАФЕДРА $\underline{\text{«Программное обеспечение ЭВМ и информационные технологии»}}$\newline\newline\newline\newline\newline
+		
+		\begin{center}
+			\noindent\begin{minipage}{1.1\textwidth}\centering
+				\Large\textbf{  Отчет по лабораторной работе №10}\newline
+				\textbf{по дисциплине <<Функциональное и логическое}\newline
+				\textbf{~~~программирование>>}\newline\newline
+			\end{minipage}
+		\end{center}
+		
+		\noindent\textbf{Тема} $\underline{\text{Вложенная рекурсия и функционалы~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Студент} $\underline{\text{Романов А.В.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Группа} $\underline{\text{ИУ7-63Б~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Оценка (баллы)} $\underline{\text{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Преподаватель} $\underline{\text{Толпинская Н.Б., Строганов Ю. В.}}$\newline\newline\newline
+		
+		\begin{center}
+			\vfill
+			Москва~---~\the\year
+			~г.
+		\end{center}
+	\end{titlepage}
+	
+	
+\section*{Задание №1}
+\subsection*{Постановка задачи}
+Написать рекурсивную версию (с именем \texttt{rec-add}) вычисления суммы чисел заданного списка.
+
+\subsection*{Решение}
+\begin{lstlisting}
+(defun rec-add (lst)
+	(defun wrapper (lst acc)
+		(if (null lst) acc
+			(wrapper (cdr lst) (+ acc (car lst)))))
+	(wrapper lst 0))
+\end{lstlisting}
+
+\section*{Задание №2}
+\subsection*{Постановка задачи}
+Написать рекурсивную функцию с именем \texttt{rec-nth} функции \texttt{nth}.
+
+\subsection*{Решение}
+\begin{lstlisting}
+(defun rec-nth (n lst)
+	(if (zerop n)
+		(car lst)
+		(rec-nth (- n 1) (cdr lst))))
+\end{lstlisting}
+
+\section*{Задание №3}
+\subsection*{Постановка задачи}
+Написать рекурсивную функцию \texttt{alloddr}, которая возвращает \texttt{t}, когда все элементы списка нечётные.
+
+\subsection*{Решение}
+\begin{lstlisting}
+(defun alloddr (lst)
+	(if (null lst) T
+		(and (oddp (car lst)) (alloddr (cdr lst)))))
+\end{lstlisting}
+
+\section*{Задание №4}
+\subsection*{Постановка задачи}
+Написать рекурсивную функцию, относящуюся к хвостовой рекурсии с одним тестом завершения, которая возвращает последний элемент списка-аргумента.
+
+\subsection*{Решение}
+\begin{lstlisting}
+(defun rec-last (lst)
+	(if (null (cdr lst))
+		(car lst)
+		(rec-last (cdr lst))))
+\end{lstlisting}
+
+\section*{Задание №5}
+\subsection*{Постановка задачи}
+Написать рекурсивную функцию, относящуюся к дополняемой рекурсии с одним тестом завершения, которая вычисляет сумму всех чисел от 0 до \textit{n}-ого аргумента функции.
+
+\subsection*{Решение}
+\begin{lstlisting}
+(defun rec-sum-n (n lst)
+	(if (or (zerop n) (null lst)) 0
+		(+ (car lst) (sum-n (- n 1) (cdr lst)))))
+\end{lstlisting}
+
+\section*{Задание №6}
+\subsection*{Постановка задачи}
+Написать рекурсию, которая возвращает последнее нечетное число из числового списка, возможно создавая некоторые вспомогательные функции.
+
+\clearpage
+\subsection*{Решение}
+\begin{lstlisting}
+(defun rec-last-odd (lst)
+	(defun wrapper (lst cur)
+		(if (null lst) cur
+			(if (oddp (car lst))
+				(wrapper (cdr lst) (car lst))
+				(wrapper (cdr lst) cur))))
+	(wrapper lst nil))
+\end{lstlisting}
+
+\section*{Задание №7}
+\subsection*{Постановка задачи}
+Используя \texttt{cons}-дополняемую рекурсию с одним тестом завершения, написать функцию, которая получает как аргумент список чисел, а возвращает список квадратов этих чисел в том же порядке.
+
+\subsection*{Решение}
+\begin{lstlisting}
+(defun cons-square (lst)
+	(and lst (cons ((lambda (x) (* x x)) (car lst))
+		(cons-square (cdr lst)))))
+\end{lstlisting}
+
+\section*{Задание №8}
+\subsection*{Постановка задачи}
+Написать функцию с именем \texttt{select-odd}, которая из заданного списка выбирает все нечетные числа.
+
+\subsection*{Решение}
+\begin{lstlisting}
+(defun select-odd (lst)
+	(reduce #'(lambda (acc x)
+		(if (oddp x)
+			(append acc (cons x Nil))
+			acc))
+	lst :initial-value ()))
+
+(defun select-sum-odd (lst)
+	(reduce #'(lambda (acc x)
+		(if (oddp x)
+			(+ acc x)
+			acc))
+	lst))
+\end{lstlisting}
+
+\section*{Задание №9}
+\subsection*{Постановка задачи}
+Создать и обработать смешанный структурированный список с информацией:
+\begin{itemize}
+	\item ФИО;
+	\item зарплата;
+	\item возраст;
+	\item категория (квалификация).
+\end{itemize}
+
+Изменить зарплату в зависимости от заданного условия, и подсчитать суммарную зарплату. Использовать композиции функций.
+
+\subsection*{Решение}
+\begin{lstlisting}
+(setf people (list
+	(list
+		(cons 'FIO "Sergey Kononenko")
+		(cons 'Salary 30000)
+		(cons 'Age 21)
+		(cons 'Category "Tarantool Presale"))
+	(list
+		(cons 'FIO "Pavel Perestoronin")
+		(cons 'Salary 100500)
+		(cons 'Age 20)
+		(cons 'Category "Qoolo developer"))
+	(list
+		(cons 'FIO "Mikhail Nitenko")
+		(cons 'Salary 3000)
+		(cons 'Age 32)
+		(cons 'Category "Superflex C++ developer"))
+	(list
+		(cons 'FIO "Dmitry Yakuba")
+		(cons 'Salary 500)
+		(cons 'Age 58)
+		(cons 'Category "Kotlin)"))
+	)
+)
+\end{lstlisting}
+
+\begin{lstlisting}
+(defun sum-salaries (lst)
+	(reduce #'(lambda (acc x)
+		(+ acc (cdr (assoc 'Salary x))))
+	lst :initial-value 0))
+
+(defun change-salaries (lst changep salary-func)
+	(defun wrapper (salary-func x)
+		(setf (cdr (assoc 'Salary x)) (funcall salary-func (cdr (assoc 'salary x)))))
+
+	(mapcar #'(lambda (x)
+		(if (funcall changep x)
+			(wrapper salary-func x)
+			(cdr (assoc 'Salary x))))
+		lst))
+
+(change-salaries people
+				 #'(lambda (x) (< (cdr (assoc 'Age x)) 30)) ;; predicate
+				 #'(lambda (x) (+ x 15))) ;; change func
+\end{lstlisting}
+
+\bibliographystyle{utf8gost705u}  % стилевой файл для оформления по ГОСТу
+	
+\bibliography{51-biblio}          % имя библиографической базы (bib-файла)
+	
+	
+\end{document}
