@@ -165,18 +165,13 @@
 
 \subsection*{Решение}
 \begin{lstlisting}[label=third,caption=Решение задания №3, language=lisp]
-(defun init (lst)
-	(defun wrapper (lst acc)
-		(if (cdr lst)
-			(wrapper (cdr lst) (append acc (cons (car lst) Nil)))
-			acc)
-		)
-	(wrapper lst ())
-)
+(defun init-internal (lst acc)
+	(if (cdr lst)
+		(init-internal (cdr lst) (append acc (cons (car lst) Nil)))
+		acc))
 
-(defun init-reverse (lst)
-	(reverse (cdr (reverse lst)))
-)
+(defun init (lst)
+	(init-internal lst ()))
 \end{lstlisting}
 
 \section*{Задание №5}
