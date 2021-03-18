@@ -1,10 +1,11 @@
 ;; 1
+(defun rec-add-internal (lst)
+    (if (null lst) acc
+        (rec-add-internal (cdr lst) (+ acc (car lst))))
+)
+
 (defun rec-add (lst)
-    (defun wrapper (lst acc)
-        (if (null lst) acc
-            (wrapper (cdr lst) (+ acc (car lst))))
-    )
-    (wrapper lst 0)
+    (rec-add-internal lst 0)
 )
 
 ;; 2
@@ -34,19 +35,20 @@
 )
 
 ;; 6
+(defun rec-last-odd-internal (lst curr)
+    (if (null lst) cur
+        (if (oddp (car lst))
+            (rec-last-odd-internal (cdr lst) (car lst))
+            (rec-last-odd-internal (cdr lst) cur)))
+)
+
 (defun rec-last-odd (lst)
-    (defun wrapper (lst cur)
-        (if (null lst) cur
-            (if (oddp (car lst))
-                    (wrapper (cdr lst) (car lst))
-                    (wrapper (cdr lst) cur)))
-    )
-    (wrapper lst nil)
+    (rec-last-odd-internal lst ())
 )
 
 ;; 7
 (defun cons-square (lst)
-    (and lst (cons ((lambda (x) (* x x)) (car lst))
+    (and lst (cons (* (car lst) (car lst))
         (cons-square (cdr lst))))
 )
 
@@ -98,15 +100,23 @@
     lst :initial-value 0)
 )
 
-(defun change-salaries (lst changep salary-func)
-    (defun wrapper (salary-func x)
-        (setf (cdr (assoc 'Salary x)) (funcall salary-func (cdr (assoc 'salary x))))
-    )
+(defun get-value (table key)
+    (cdr (assoc key table))
+)
 
+(defun change-salaries-internal (salary-func curr)
+    (list
+        (cons 'FIO (get-value curr 'FIO))
+        (cons 'Salary (funcall salary-func (get-value curr 'Salary)))
+        (cons 'Age (get-value curr 'Age))
+        (cons 'Category (get-value curr 'Category)))
+)
+
+(defun change-salaries (lst changep salary-func)
     (mapcar #'(lambda (x)
         (if (funcall changep x)
-            (wrapper salary-func x)
-            (cdr (assoc 'Salary x))))
+            (change-salaries-internal salary-func x)
+            x))
     lst)
 )
 

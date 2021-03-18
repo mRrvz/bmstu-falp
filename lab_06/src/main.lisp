@@ -11,13 +11,14 @@
 )
 
 ;; 4.1
+(defun init-internal (lst acc)
+    (if (cdr lst)
+        (init-internal (cdr lst) (append acc (cons (car lst) Nil)))
+        acc)
+)
+
 (defun init (lst)
-    (defun wrapper (lst acc)
-        (if (cdr lst)
-            (wrapper (cdr lst) (append acc (cons (car lst) Nil)))
-            acc)
-    )
-    (wrapper lst ())
+    (init-internal lst ())
 )
 
 ;; 4.2

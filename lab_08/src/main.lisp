@@ -11,22 +11,74 @@
             (if (numberp el)
                 (* acc el)
                 acc))
-        lst :initial-value mp)
+    lst :initial-value mp)
 )
 
 ;; 2
+(defun rec-add-to-end (lst elem)
+    (cond ((cdr lst)
+                (rec-add-to-end (cdr lst) elem))
+           ((listp elem)
+                (setf (cdr lst) elem))
+           (t (setf (cdr lst) (cons elem Nil))))
+    lst
+)
+
+(defun add-to-end (lst elem)
+    (if (null lst)
+        (cons elem Nil)
+        (rec-add-to-end lst elem)
+    )
+)
+
 (defun select-between (lst bot top)
     (reduce
         #'(lambda (acc el)
             (if (and (> el bot) (< el top))
-                (append acc (cons el Nil))
+                (add-to-end acc el)
                 acc))
-        lst :initial-value ())
+    lst :initial-value ())
 )
 
 ;; 4
+(defun rec-add-to-end (lst elem)
+    (cond ((cdr lst)
+                (rec-add-to-end (cdr lst) elem))
+           ((listp elem)
+                (setf (cdr lst) elem))
+           (t (setf (cdr lst) (cons elem Nil))))
+    lst
+)
+
+(defun add-to-end (lst elem)
+    (if (null lst)
+        (cons elem Nil)
+        (rec-add-to-end lst elem)
+    )
+)
+
+(defun rec-minus-n-internal (lst n acc)
+    (if (car lst)
+        (cond ((listp (car lst))
+                    (add-to-end acc (rec-minus-n (car lst) n ())))
+              ((numberp (car lst))
+                    (rec-minus-n (cdr lst) n (add-to-end acc (- (car lst) n))))
+              (t
+                    (add-to-end acc (car lst))))
+        acc
+    )
+)
+
+(defun rec-minus-n (lst n)
+    (rec-minus-n-internal lst n ())
+)
+
 (defun minus-n (lst n)
-    (mapcar #'(lambda (el) (- el n)) lst)
+    (mapcar #'(lambda (el)
+        (cond ((listp el) (minus-n el n))
+               ((numberp el) (- el n))
+               (t el)))
+    lst)
 )
 
 ;; 5
@@ -43,5 +95,5 @@
         (cond ((listp x) (+ acc (sum-list x)))
                ((numberp x) (+ acc x))
                (t acc)))
-    (cons 0 lst)) ;; NIL Check
+    lst :initial-value 0)
 )
