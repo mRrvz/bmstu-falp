@@ -21,11 +21,12 @@ clauses
   man("Alexey", "89096421389", address("Moscow", "Baumanskaya", "170", "1")).
 
   car("Alexey", "AMG", "Black", "100000").
-  car("Alexey", "Volvo", "Red", "50000").
+  car("Vladimir", "Volvo", "Red", "50000").
   car("Pavel", "Nissan", "White", "709000").
   car("Mikhail", "Cadillac", "Black", "1000000").
 
   deposit("Alexey", "Tinkoff", "10000000000").
+  deposit("Alexey", "Sber", "1000").
   deposit("Pavel", "Sber", "0").
   deposit("Mikhail", "Alpha", "10").
 
