@@ -8,6 +8,7 @@
 \usepackage{pgfplots}
 \usepackage{filecontents}
 \usepackage{float}
+\usepackage{comment}
 \usepackage{indentfirst}
 \usepackage{eucal}
 \usepackage{enumitem}
@@ -187,6 +188,8 @@ goal
 Для одного из вариантов ответов, и для А, и для B, описать словесно порядок поиска ответа на вопрос, указав, как выбираются знания, и, при этом, для каждого этапа унификации, выписать подстановку — наибольший унификатор, и соответствующие примеры термов.
 
 \subsection*{Решение}
+
+\newpage
 \begin{lstlisting}
 domains
 	surname, phone, city, street, house, apartment = string
@@ -203,20 +206,22 @@ predicates
 	car_model_by_phone(phone, model)
 	bank_and_street_by_surname_and_city(surname, city, bank, street)
 
-clauses
+clauses	
+	man("Alexey", "89096412389", address("Krasnogorsk", "Lesnaya", "17", "5")).
 	man("Vladimir", "890955550987", address("Moscow", "Sovetskaya", "134", "15")).
 	man("Mikhail", "8100500321", address("Khimki", "Lesnaya", "27", "501")).
 	man("Pavel", "87654329867", address("Moscow", "Tikhaya", "105", "52")).
-	man("Alexey", "89096412389", address("Krasnogorsk", "Lesnaya", "17", "5")).
-	man("Alexey", "89096421381", address("Moscow", "Baumanskaya", "170", "1")).
+	man("Alexey", "89096421389", address("Moscow", "Baumanskaya", "170", "1")).
 	
+	car("Alexey", "AMG", "Black", "100000").
+	car("Vladimir", "Volvo", "Red", "50000").
 	car("Pavel", "Nissan", "White", "709000").
 	car("Mikhail", "Cadillac", "Black", "1000000").
-	car("Alexey", "AMG", "Black", "100000").
 	
+	deposit("Alexey", "Tinkoff", "10000000000").
+	deposit("Alexey", "Sber", "1000").
 	deposit("Pavel", "Sber", "0").
 	deposit("Mikhail", "Alpha", "10").
-	deposit("Alexey", "Tinkoff", "100500").
 	
 	car_by_phone(Phone, Surname, Model, Cost)
 		:- man(Surname, Phone, _), car(Surname, Model, _, Cost).
@@ -232,6 +237,7 @@ goal
 	bank_and_street_by_surname_and_city("Alexey", "Moscow", Bank, Street).
 \end{lstlisting}""\newline
 
+\begin{comment}
 Порядок формирования результата для 1-го вопроса:
 
 \begin{table}[H]
@@ -587,6 +593,7 @@ goal
 	\end{center}
 \end{table}
 
+\end{comment}
 
 \chapter*{Теоретическая часть}
 
