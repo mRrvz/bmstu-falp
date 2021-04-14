@@ -26,6 +26,7 @@ clauses
   car("Mikhail", "Cadillac", "Black", "1000000").
 
   deposit("Alexey", "Tinkoff", "10000000000").
+  deposit("Alexey", "Sber", "1000").
   deposit("Pavel", "Sber", "0").
   deposit("Mikhail", "Alpha", "10").
 
