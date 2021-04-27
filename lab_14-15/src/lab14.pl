@@ -18,7 +18,6 @@ clauses
   man("Pavel", "87654329867", address("Moscow", "Tikhaya", "105", "52")).
   man("Alexander", "89096421389", address("Moscow", "Baumanskaya", "170", "1")).
   man("Pavel", "89999999999", address("Ekaterinburg", "Lenina", "140", "21")).
-  man("Pavel", "89853476549", address("SPB", "Krasova", "10", "18")).
   
   car("Alexey", "AMG", "Black", "100000").
   car("Alexey", "Volvo", "Red", "50000").
