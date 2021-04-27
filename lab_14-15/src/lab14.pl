@@ -17,11 +17,12 @@ clauses
   man("Mikhail", "8100500321", address("Khimki", "Lesnaya", "27", "501")).
   man("Pavel", "87654329867", address("Moscow", "Tikhaya", "105", "52")).
   man("Alexander", "89096421389", address("Moscow", "Baumanskaya", "170", "1")).
-  man("Pavel", "89999999999", address("Ekaterinburg", "Lenina", "140", "21")).
+  man("Andrey", "89999999999", address("Ekaterinburg", "Lenina", "140", "21")).
   
   car("Alexey", "AMG", "Black", "100000").
   car("Alexey", "Volvo", "Red", "50000").
   car("Pavel", "Nissan", "White", "709000").
+  car("Andrey", "Nissan", "White", "205000").
   car("Mikhail", "Cadillac", "Black", "1000000").
   car("Dmirty", "Honda", "Red", "100500").
   
