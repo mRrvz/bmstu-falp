@@ -2,13 +2,13 @@ domains
   city, street, phone, surname, name = string
   house, flat = integer
   address = addr(city, street, house, flat)
-  mark, color, bank = string
+  model, color, bank = string
   id, amount, price = integer
 
   object = building(name, price);
+    car(model, color, price).
+    water_transport(model, color, price);
     region(name, price);
-    water_transport(mark, color, price);
-    car(mark, color, price).
   
 predicates
   phone(surname, phone, address)
